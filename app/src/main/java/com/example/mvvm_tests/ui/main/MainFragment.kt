@@ -13,7 +13,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.inflate
 import com.example.mvvm_tests.R
 import com.example.mvvm_tests.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     companion object {
@@ -42,7 +44,7 @@ class MainFragment : Fragment() {
        }
 
         viewModel.playlist.observe(viewLifecycleOwner) {
-            Log.d("MainFragment", it[0].title)
+            Log.d("MainFragment", it[1].title)
 //            binding.message.text = it[0].title
         }
 

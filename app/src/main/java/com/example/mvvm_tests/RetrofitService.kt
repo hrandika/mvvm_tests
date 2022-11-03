@@ -9,12 +9,3 @@ interface DevbyteService {
     @GET("devbytes")
     suspend fun getPlaylist(): NetworkVideoContainer
 }
-
-object DevByteNetwork {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://android-kotlin-fun-mars-server.appspot.com/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-
-    val devbytes = retrofit.create(DevbyteService::class.java)
-}

@@ -6,12 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvm_tests.ui.main.models.DevByteVideo
 import androidx.lifecycle.viewModelScope
-import com.example.mvvm_tests.ui.main.models.NetworkVideoContainer
 import com.example.mvvm_tests.ui.main.models.asDomainModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor (
+    private val devbyteService : DevbyteService
+) : ViewModel() {
+
     private var _score = MutableLiveData<String>().apply {
         value = "0"
     }
@@ -35,7 +40,7 @@ class MainViewModel : ViewModel() {
 
     private fun refreshDataFromNetwork() = viewModelScope.launch {
         try {
-            val playlist = DevByteNetwork.devbytes.getPlaylist()
+            val playlist = devbyteService.getPlaylist()
             _playlist.postValue(playlist.asDomainModel())
             _eventNetworkError.value = false
             _isNetworkErrorShown.value = false
