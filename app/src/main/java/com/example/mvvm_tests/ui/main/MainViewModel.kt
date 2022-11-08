@@ -4,9 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mvvm_tests.ui.main.models.DevByteVideo
+import com.example.mvvm_tests.data.main.model.DevByteVideo
 import androidx.lifecycle.viewModelScope
-import com.example.mvvm_tests.ui.main.models.asDomainModel
+import com.example.mvvm_tests.data.main.model.asDomainModel
+import com.example.mvvm_tests.data.main.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -14,8 +15,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor (
-    private val devbyteService : DevbyteService
+    private val mainRepository: MainRepository
 ) : ViewModel() {
+
+    val videos = mainRepository.findAll()
 
     private var _score = MutableLiveData<String>().apply {
         value = "0"
@@ -35,18 +38,19 @@ class MainViewModel @Inject constructor (
         get() = _isNetworkErrorShown
 
     init {
-        refreshDataFromNetwork()
+        getDataFromRepository()
     }
 
-    private fun refreshDataFromNetwork() = viewModelScope.launch {
-        try {
-            val playlist = devbyteService.getPlaylist()
-            _playlist.postValue(playlist.asDomainModel())
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        } catch (networkError: IOException) {
-            _eventNetworkError.value = true
-        }
+    private fun getDataFromRepository() = viewModelScope.launch {
+//        mainRepository.findAll().
+//        try {
+//            val playlist = devbyteService.getPlaylist()
+//            _playlist.postValue(playlist.asDomainModel())
+//            _eventNetworkError.value = false
+//            _isNetworkErrorShown.value = false
+//        } catch (networkError: IOException) {
+//            _eventNetworkError.value = true
+//        }
     }
 
     fun increase(){

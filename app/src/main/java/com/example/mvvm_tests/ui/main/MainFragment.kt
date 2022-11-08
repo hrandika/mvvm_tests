@@ -39,18 +39,22 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-       viewModel.score.observe(viewLifecycleOwner) {
-         binding.message?.text = it.toString()
-       }
-
-        viewModel.playlist.observe(viewLifecycleOwner) {
-            Log.d("MainFragment", it[1].title)
-//            binding.message.text = it[0].title
+        viewModel.videos.observe(viewLifecycleOwner) {
+            Log.d("MainFragment", it.data.toString())
         }
 
-        viewModel.eventNetworkError.observe(viewLifecycleOwner) {
-            Log.d("MainFragment", "Errorr ${it}")
-        }
+//       viewModel.score.observe(viewLifecycleOwner) {
+//         binding.message?.text = it.toString()
+//       }
+//
+//        viewModel.playlist.observe(viewLifecycleOwner) {
+//            Log.d("MainFragment", it[1].title)
+////            binding.message.text = it[0].title
+//        }
+//
+//        viewModel.eventNetworkError.observe(viewLifecycleOwner) {
+//            Log.d("MainFragment", "Errorr ${it}")
+//        }
     }
 
 }

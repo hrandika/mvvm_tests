@@ -1,6 +1,7 @@
 package com.example.mvvm_tests.di
 
-import com.example.mvvm_tests.ui.main.DevbyteService
+import com.example.mvvm_tests.data.main.rest.MainRestService
+import com.example.mvvm_tests.data.main.rest.MainService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +25,8 @@ object APIModule {
 
     @Provides
     @Singleton
-    fun provideDevbyteService(retrofit:Retrofit): DevbyteService {
-        return retrofit.create(DevbyteService::class.java)
+    fun provideDevbyteService(retrofit:Retrofit): MainService {
+        return retrofit.create(MainService::class.java)
     }
 
 }

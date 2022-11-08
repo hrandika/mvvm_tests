@@ -1,4 +1,4 @@
-package com.example.mvvm_tests.ui.main.models
+package com.example.mvvm_tests.data.main.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,9 +7,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class NetworkVideoContainer(val videos: List<NetworkVideo>)
 
-fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
+fun NetworkVideoContainer.asDomainModel(): List<DatabaseVideo> {
     return videos.map {
-        DevByteVideo(
+        DatabaseVideo(
             title = it.title,
             description = it.description,
             url = it.url,
@@ -17,6 +17,7 @@ fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
             thumbnail = it.thumbnail)
     }
 }
+
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
     val title: String,
